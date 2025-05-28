@@ -30,6 +30,26 @@ app.use(express.static("public"));
 // URL / now gets index.html
 // URL /test/tt.html now gets tt.html
 
+// Some more built-in middleware: parsing the info posted to the server from
+// form submissions or JSON requests.
+
+// For processing form submissions: Use express.urlencoded(). This is middleware
+// to allow us to parse incoming requests with URL-encoded payloads. In other
+// words, with this we can access information submitted from forms in the
+// req.body object in our route handlers.
+
+// Pass in a config object. The `extended` property determines whether to use
+// the `querystring` library or the `qs` library for parsing. When extended is
+// set to true, the `qs` library is used, allowing for parsing of more complex
+// data structures like nested objects and arrays. When set to false, the
+// `querystring` library is used, which only supports parsing simple strings and
+// arrays.
+app.use(express.urlencoded({ extended: true }));
+
+// For processing requests with JSON in the body: Use Another build-in middleware:
+// express.json().
+app.use(express.json());
+
 // Routes
 
 // Each HTTP method has its own function

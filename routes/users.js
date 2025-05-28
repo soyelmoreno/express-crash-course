@@ -31,13 +31,32 @@ router.get("/", (req, res) => {
 });
 
 router.get("/new", (req, res) => {
-  res.send("New User Form");
+  // res.send("New User Form");
+  // Render a form so we can submit some data
+  res.render("users/new", { firstName: "Test" });
 });
 
 // When you submit the New User Form, you'll post to an endpoint that will
 // create the user.
 router.post("/", (req, res) => {
-  res.send("Create a user");
+  // res.send("Create a user");
+
+  // On the request we have the post body and any named fields in that body. But
+  // by default Express does not let you access them. Need to use a built-in
+  // middleware to do this: express.urlencoded()
+  // console.log(req.body.firstName); // this should work now
+
+  const isValid = false;
+  if (isValid) {
+    users.push({ firstName: req.body.firstName });
+    // .redirect() changes the URL completely, immediately navigates the user
+    res.redirect(`/users/${users.length - 1}`);
+  } else {
+    console.log("Error");
+    // Send them cback to the new user form, but prepopulate the fields with
+    // what they submitted
+    res.render("users/new", { firstName: req.body.firstName });
+  }
 });
 
 // To retrieve a user by id we want a dynamic route based on the URL
@@ -68,7 +87,7 @@ router
   .get((req, res) => {
     // router.param(), acting as middleware, injected `user` into req, so it is
     // now available here
-    // console.log(req.user);
+    console.log(req.user);
     res.send(`Get user with ID ${req.params.id}`);
   })
   .put((req, res) => {
