@@ -27,6 +27,10 @@ router.use(logger2);
 // But the nice thing about a router is that we can nest it inside of a parent
 // route.
 router.get("/", (req, res) => {
+  // We can also access query parameters on the URL. For example,
+  // /users/?name=Kyle, and we want to grab that name from the query param and use
+  // it to display the records. In your route handler, use req.query.<param_name>.
+  console.log(req.query.name);
   res.send("User List");
 });
 

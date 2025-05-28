@@ -46,8 +46,8 @@ app.use(express.static("public"));
 // arrays.
 app.use(express.urlencoded({ extended: true }));
 
-// For processing requests with JSON in the body: Use Another build-in middleware:
-// express.json().
+// For processing requests with JSON in the body: Use Another build-in
+// middleware: express.json().
 app.use(express.json());
 
 // Routes
