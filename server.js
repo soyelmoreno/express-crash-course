@@ -38,7 +38,7 @@ app.get("/", (req, res) => {
 
   // Most of the time, however, you'll either be sending down some JSON, or
   // you'll be sending an HTML file to render
-  res.render("index");
+  // res.render("index");
 
   // With just index.html, this results in a browser error: "Error: No default
   // engine was specified and no extension was provided". We want to run server
@@ -46,6 +46,11 @@ app.get("/", (req, res) => {
 
   // So set up EJS as our view engine. Embedded JavaScript templates. Could also
   // use Pug. So up above, tell our app to use the EJS view engine.
+
+  // To pass data to the view, pass an object as a second parameter to the
+  // render() function
+  // res.render("index", { text: "World" });
+  res.render("index", { text2234: "World" });
 });
 
 // Start the server listening on this port
