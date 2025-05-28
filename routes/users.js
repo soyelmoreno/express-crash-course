@@ -63,6 +63,9 @@ router.post("/", (req, res) => {
 router
   .route("/:id")
   .get((req, res) => {
+    // router.param(), acting as middleware, injected `user` into req, so it is
+    // now available here
+    console.log(req.user);
     res.send(`Get user with ID ${req.params.id}`);
   })
   .put((req, res) => {
@@ -71,5 +74,23 @@ router
   .delete((req, res) => {
     res.send(`Delete user with ID ${req.params.id}`);
   });
+
+// router.param() runs anytime it finds a param that matches the name you pass
+// in. Only runs the code inside, nothing else. So you have to call next() to
+// run the next thing inline. So router.param acts like a type of middleware,
+// i.e., stuff that runs between the request being sent to your server and the
+// actual response being returned to the user.
+
+// Here, let's create an array of users, and assume the id in the URL is the
+// index of the array. We can retrieve the user object and inject it into req
+// before the other route functions run. Saves us from having to put all this
+// logic into each route function.
+const users = [{ name: "Kyle" }, { name: "Sally" }];
+router.param("id", (req, res, next, id) => {
+  // console.log(id);
+  req.user = users[id];
+  // Move on to the next piece of middleware
+  next();
+});
 
 module.exports = router;
