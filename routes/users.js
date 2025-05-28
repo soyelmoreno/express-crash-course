@@ -8,6 +8,9 @@ const express = require("express");
 // be sort of independent of the main application.
 const router = express.Router();
 
+// Let's move the logger middleware function into this users router
+router.use(logger2);
+
 // router has functions like .get(), .post(), etc. So we can replace `app` with
 // `router` in these routes
 
@@ -65,7 +68,7 @@ router
   .get((req, res) => {
     // router.param(), acting as middleware, injected `user` into req, so it is
     // now available here
-    console.log(req.user);
+    // console.log(req.user);
     res.send(`Get user with ID ${req.params.id}`);
   })
   .put((req, res) => {
@@ -92,5 +95,10 @@ router.param("id", (req, res, next, id) => {
   // Move on to the next piece of middleware
   next();
 });
+
+function logger2(req, res, next) {
+  console.log(req.originalUrl);
+  next();
+}
 
 module.exports = router;

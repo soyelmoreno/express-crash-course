@@ -7,6 +7,23 @@ app.set("view engine", "ejs");
 // Now rename markup file to have a .ejs extension instead of .html
 // To get syntax highlighting, install the VSCode extension EJS Language Support
 
+// Let's put the app.use way up here before our routes. Also, middleware runs
+// from top to bottom. So everything that comes afterwards uses it. If you were
+// to move this down right below app.get("/"), then it would not fire for the
+// root URL but it would fire for the rest of the routes.
+// app.use(logger);
+
+// We can also apply middleware functions to an individual route. For .get() you
+// can pass middleware functions before the callback to handle tasks like query
+// parameter validation or data processing. So for just this route we could add
+// the logger as the second argument, before the callback:
+app.get("/log", logger, (req, res) => {
+  // logger (and any other middleware arguments) will run first, and then the
+  // callback function (the last argument) will run, as long as we call
+  // next() within our middleware functions.
+  res.render("index", { text: "There" });
+});
+
 // Routes
 
 // Each HTTP method has its own function
@@ -17,7 +34,7 @@ app.set("view engine", "ejs");
 // app.patch()
 
 app.get("/", (req, res) => {
-  console.log("route: /");
+  // console.log("route: /");
   // res.send is not commonly used. Just a text response, typically for testing
   // res.send("Hello");
 
@@ -70,7 +87,6 @@ app.get("/", (req, res) => {
 
 // This works, but would make more sense to put everything related to users in
 // its own file, so that its encapsulated and this file stays organized.
-
 const userRouter = require("./routes/users");
 
 // Link up these routes with our main app with app.use()
@@ -80,6 +96,13 @@ app.use("/users", userRouter);
 // own file, create a router, and use it here
 const postRouter = require("./routes/posts");
 app.use("/posts", postRouter);
+
+// Some middleware you might want: logging middleware
+
+function logger(req, res, next) {
+  console.log(req.originalUrl);
+  next();
+}
 
 // Start the server listening on this port
 app.listen(3010);
