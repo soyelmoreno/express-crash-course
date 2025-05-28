@@ -24,6 +24,12 @@ app.get("/log", logger, (req, res) => {
   res.render("index", { text: "There" });
 });
 
+// // To serve static assets, use express.static(). Serves all of the files from
+// the folder we pass in
+app.use(express.static("public"));
+// URL / now gets index.html
+// URL /test/tt.html now gets tt.html
+
 // Routes
 
 // Each HTTP method has its own function
@@ -33,7 +39,9 @@ app.get("/log", logger, (req, res) => {
 // app.delete()
 // app.patch()
 
-app.get("/", (req, res) => {
+// app.get("/", (req, res) => {
+// Change this route to "/ejs" since we'll use a static file for "/"
+app.get("/ejs", (req, res) => {
   // console.log("route: /");
   // res.send is not commonly used. Just a text response, typically for testing
   // res.send("Hello");
