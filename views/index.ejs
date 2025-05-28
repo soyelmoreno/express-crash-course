@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Hello<%= 2+2 %></h1>
+    <!-- <h2>Hello < % = text % > </h2> -->
+    <!-- If data object key is undefined, you'll get an error -->
+
+    <!-- So use locals which is the data object we passed down, and it will
+    always be defined, so you won't get an error. Just undefined, which will
+    print nothing. -->
+
+    <h2>Hello <%= locals.text %></h2>
+    <h3>Hello <%= locals.text || 'Default' %></h3>
+  </body>
+</html>

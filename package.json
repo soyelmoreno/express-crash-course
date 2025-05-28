@@ -1,0 +1,20 @@
+{
+  "name": "wds-express-crash-course",
+  "version": "1.0.0",
+  "description": "Tutorial from Web Dev Simplified: Learn Express JS in 35 minutes",
+  "main": "index.js",
+  "scripts": {
+    "devStart": "nodemon server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
