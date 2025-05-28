@@ -53,5 +53,33 @@ app.get("/", (req, res) => {
   res.render("index", { text2234: "World" });
 });
 
+// But what if we have hundreds of routes? This file would become huge and
+// difficult to deal with. So we create a router, which is a small instance of
+// your application that has its own logic applied to it. Then you can just
+// insert that into the main application.
+
+// // List all users
+// app.get("/users", (req, res) => {
+//   res.send("User List");
+// });
+
+// // Create a new user
+// app.get("/users/new", (req, res) => {
+//   res.send("New User Form");
+// });
+
+// This works, but would make more sense to put everything related to users in
+// its own file, so that its encapsulated and this file stays organized.
+
+const userRouter = require("./routes/users");
+
+// Link up these routes with our main app with app.use()
+app.use("/users", userRouter);
+
+// Another example. Say you had routes related to posts. Put them all in their
+// own file, create a router, and use it here
+const postRouter = require("./routes/posts");
+app.use("/posts", postRouter);
+
 // Start the server listening on this port
 app.listen(3010);
