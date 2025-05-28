@@ -1,0 +1,13 @@
+{
+  "name": "wds-express-crash-course",
+  "version": "1.0.0",
+  "description": "Tutorial from Web Dev Simplified: Learn Express JS in 35 minutes",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}
