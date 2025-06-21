@@ -21,6 +21,7 @@ app.get("/log", logger, (req, res) => {
   // logger (and any other middleware arguments) will run first, and then the
   // callback function (the last argument) will run, as long as we call
   // next() within our middleware functions.
+  // res.render("index"); --> variable `text` will be undefined in the template
   res.render("index", { text: "There" });
 });
 
@@ -82,15 +83,20 @@ app.get("/ejs", (req, res) => {
   // res.download("server.js");
 
   // Most of the time, however, you'll either be sending down some JSON, or
-  // you'll be sending an HTML file to render
+  // you'll be sending an HTML file to render.
   // res.render("index");
+
+  // Note: Express expects your view templates to be located in a directory
+  // called `views` in the root directory. You can change this with
+  // app.set('views', './views2')
 
   // With just index.html, this results in a browser error: "Error: No default
   // engine was specified and no extension was provided". We want to run server
   // code to generate the contents of the view that we send down.
 
   // So set up EJS as our view engine. Embedded JavaScript templates. Could also
-  // use Pug. So up above, tell our app to use the EJS view engine.
+  // use Pug. So way up above, before everything, tell our app to use the EJS
+  // view engine.
 
   // To pass data to the view, pass an object as a second parameter to the
   // render() function
@@ -114,7 +120,7 @@ app.get("/ejs", (req, res) => {
 // });
 
 // This works, but would make more sense to put everything related to users in
-// its own file, so that its encapsulated and this file stays organized.
+// its own file, so that it gets encapsulated and this file stays organized.
 const userRouter = require("./routes/users");
 
 // Link up these routes with our main app with app.use()
@@ -128,9 +134,12 @@ app.use("/posts", postRouter);
 // Some middleware you might want: logging middleware
 
 function logger(req, res, next) {
-  console.log(req.originalUrl);
+  console.log("Original URl is", req.originalUrl);
   next();
 }
 
 // Start the server listening on this port
-app.listen(3010);
+const port = 3010;
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}...`);
+});

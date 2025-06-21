@@ -6,7 +6,7 @@
     <title>Document</title>
   </head>
   <body>
-    <h1>Hello<%= 2+2 %></h1>
+    <h1>Hello <%= 2+2 %></h1>
     <!-- <h2>Hello < % = text % > </h2> -->
     <!-- If data object key is undefined, you'll get an error -->
 
@@ -14,7 +14,7 @@
     always be defined, so you won't get an error. Just undefined, which will
     print nothing. -->
 
-    <h2>Hello <%= locals.text %></h2>
-    <h3>Hello <%= locals.text || 'Default' %></h3>
+    <h2>The text is: <%= locals.text %></h2>
+    <h3>Text again (with a default): <%= locals.text || 'Default' %></h3>
   </body>
 </html>
